@@ -12,7 +12,6 @@
         "feito. falta ajeitar precisão das casas do double"
         (14/03/17 - 07:37)
 
-    
     gráficos (google Charts):
         cand/total de votos (pizza)
         candidados (linha)
@@ -113,9 +112,9 @@ public class ServidorVotacao extends HttpServlet {
         /* Formatando o valor porcentual dos votos (float) para 2 casas decimais após o ponto */
         NumberFormat formatador = new DecimalFormat("#.##");
         
-        porcentagem = candMaisVotado.getVotos();
-        response.getWriter().write("<p><b>Mais Votado: </b>"+candMaisVotado.getNome()+ " with "+ formatador.format(porcentagem) + " votes "
-                + "("+candMaisVotado.calcularPorcentagem()+"% )</p><br /><br />");
+        porcentagem = candMaisVotado.calcularPorcentagem();
+        response.getWriter().write("<p><b>Mais Votado: </b>"+candMaisVotado.getNome()+ " with "+ candMaisVotado.getVotos() + " votes "
+                + "("+ formatador.format(porcentagem)+"% )</p><br /><br />");
         
       
         /* Imprimindo candidatos */ 

@@ -17,7 +17,8 @@ var request;
 function enviarVoto(candidato)
 {
        
-	var url="http://localhost:8084/ElectionsStarfleet/ServidorVotacao?nomeCandidato="+candidato;
+	//var url="http://localhost:8084/ElectionsStarfleet/ServidorVotacao?nomeCandidato="+candidato;
+        var url = "ServidorVotacao?nomeCandidato="+candidato;
 	if(window.XMLHttpRequest){
 		request=new XMLHttpRequest();
 	} else if(window.ActiveXObject){
