@@ -18,7 +18,7 @@ public class ParserXML {
         File xmlFile = new File("bookstore.xml");
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = factory.newDocumentBuilder();
-        Document doc = documentBuilder.parse(xmlFile);
+        Document doc = documentBuilder.parse(xmlFile); // doc aponta para o arquivo XML
 
         
     /* Processar o arquivo XML Bookstore apresentando os resultados das seguintes
