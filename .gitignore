@@ -12,3 +12,6 @@
 hs_err_pid*
 /DomJava/dist/
 /DomJava/build/
+/XML&CSS/nbproject/private/
+/XML&CSS/build/
+/XML&CSS/dist/
