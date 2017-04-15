@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <p id="demo"></p>
+
+        <script>
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function send() {
+                if (this.readyState == 4 && this.status == 200) {
+                    showResult(xhttp.responseXML);
+                }
+            };
+
+            xhttp.open("GET", "books.xml", true);
+            xhttp.send();
+
+            function showResult(xml) {
+                var retorno = "";
+                //XPathExpression = "/bookstore/book/title";
+                XPathExpression = "/bookstore/book/year[.>'2000']";
+                if (xml.evaluate) {
+                    var nodes = xml.evaluate(XPathExpression, xml, null, XPathResult.ANY, null);
+                    var result = nodes.iterateNext();
+                    while (result) {
+                        retorno += result.childNodes[0].nodeValue + "<br>";
+                        result = nodes.iterateNext();
+                    }
+                    
+                    // Code For Internet Explorer
+                } else if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+                    xml.setProperty("SelectionLanguage", "XPath");
+                    nodes = xml.selectNodes(XPathExpression);
+                    for (i = 0; i < nodes.length; i++) {
+                        txt += nodes[i].childNodes[0].nodeValue + "<br>";
+                    }
+                }
+                document.getElementById("demo").innerHTML = retorno;
+            }
+        </script>
+
+    </body>
+
+</html>

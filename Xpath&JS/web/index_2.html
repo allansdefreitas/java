@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<!-- 
+    Documentação: https://developer.mozilla.org/en/docs/Web/API/Document/evaluate
+-->
+<html>
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Insert title here</title>
+        <script type="text/javascript">
+            function GetFirstButton() {
+                if (document.evaluate) {    // Firefox, Opera, Google Chrome and Safari
+                    var xPathResult= document.evaluate('//BUTTON', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+                    if (xPathResult.singleNodeValue) {
+                        document.getElementById('resultado').innerHTML = xPathResult.singleNodeValue.textContent; // Pega o texto do botão
+                    } else {
+                        alert("No button found!");
+                    }
+                } else {  // Internet Explorer
+                    alert("Your browser does not support the evaluate method!");
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <button onclick="GetFirstButton()">Get the first button in the document!</button>
+        <div id = resultado>
+
+        </div>
+    </body>
+</html>
