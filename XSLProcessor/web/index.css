@@ -1,0 +1,44 @@
+td:link, td:visited {
+    background-color: #eeeeff;
+}
+td:hover {
+    background-color: #cccccc;
+}
+
+td {
+    background-color: #eeeeff;
+    width: 120px;
+    height: 25px;
+    border-style: ridge;
+    border-width: thin;
+    border-color: gray;
+    font-weight: bold;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: gray;
+}
+
+div.submenublock {
+    visibility: hidden;
+    background-color: lightsteelblue;
+    position: absolute;
+    top: 70px;
+    left: 133px;
+    width: 180px;
+    border-style: ridge;
+    border-width: thin;
+    color: gray;
+    font-weight: bold;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    background-color: #28618E;
+    font-weight: bold;
+}
