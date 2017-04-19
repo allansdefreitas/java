@@ -35,3 +35,5 @@ function showResult() {
 
 //ActiveX é uma tecnologia da Microsoft para o desenvolvimento de páginas dinâmicas.
 //Mozilla, Safari, Shrome e outros navegadores implementam uma classe XMLHttpRequest que suporta os métodos e propriedades do objeto ActiveX original da Microsoft.
+
+

@@ -38,3 +38,5 @@ hs_err_pid*
 /XSLTJava/build/
 /XSLTJava/dist/
 /q3_xslt/nbproject/private/
+/ElectionsEnterpriseJson/build/
+/ElectionsEnterpriseJson/dist/
