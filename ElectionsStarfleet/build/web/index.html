@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Starfleet Elections</title>
+        <link rel="icon" href="img/logo.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="js/script.js"></script>
+    </head>
+    <body>
+
+        <ul>
+            <li><a href="#">Home</a></li>
+            
+            <li style="float:right"> <img src="img/logo.png" width="40"></li>
+        </ul>
+        
+        <h1>Vote for the new Starfleet Commander</h1>
+        <img src="img/starfleet_command.png" width="70" align="right">
+        <br /><br /><br /><br />
+        <hr>
+
+        <img src="img/james_kirk.jpg" alt="James Kirk" width="50">
+        <span>James T. Kirk</span> 
+        <button  type="button" onclick="enviarVoto('James T. Kirk')" name="btn-vote-james" id="btn-vote-james" >Vote!</button>
+        <br>
+
+        <img src="img/spock.jpg" width="50">
+        <span>Spock</span> 
+        <button type="button" onclick="enviarVoto('Spock')" name="btn-vote-spock">Vote!</button>
+
+        <br><br>
+    <legend>Partial Results</legend>
+    <hr>
+    <div id="resultado">
+
+    </div>
+
+</body>
+</html>
