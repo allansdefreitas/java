@@ -30,7 +30,7 @@ public class Application {
         EntityTransaction et = null;
         try {
             //EntityManagerFactory realiza a leitura das informações relativas à "persistence-unit".
-            emf = Persistence.createEntityManagerFactory("sistema_carros");
+            emf = Persistence.createEntityManagerFactory("sistema_carros_pu");
             em = emf.createEntityManager(); //Criação do EntityManager.
             et = em.getTransaction(); //Recupera objeto responsável pelo gerenciamento de transação.
             et.begin();
@@ -48,8 +48,9 @@ public class Application {
             if (emf != null)
                 emf.close();
             
-            System.out.println("NAO DEU COMMIT -----------------------------");
+            
         }
+        System.out.println("FIM -----------------------------");
     }
 
     private static void preencherCarro(Carro carro) {

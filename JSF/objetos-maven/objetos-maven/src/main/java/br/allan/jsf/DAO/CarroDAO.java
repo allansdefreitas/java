@@ -41,7 +41,7 @@ public class CarroDAO {
                 em.close();
             }
         }
-
+          System.err.println("FIM -----------------------------------------------------");
     }
     
 }

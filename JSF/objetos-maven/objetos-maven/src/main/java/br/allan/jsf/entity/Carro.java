@@ -22,8 +22,11 @@ import javax.persistence.TemporalType;
 public class Carro implements Serializable {
     
     @Id
-    @Column(name = "str_modelo", unique = true, nullable = false)
+    @Column(name = "int_id_carro", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idCarro;
+    
+    @Column(name = "str_modelo")
     private String modelo;
     
     @Column(name = "str_fabricante")
