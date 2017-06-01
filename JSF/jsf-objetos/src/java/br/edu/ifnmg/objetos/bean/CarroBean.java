@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package br.allan.jsf.bean;
+package br.edu.ifnmg.objetos.bean;
 
-
-import br.allan.jsf.DAO.CarroDAO;
-import  br.allan.jsf.entity.Carro;
+import br.edu.ifnmg.objetos.entidade.Carro;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -21,9 +14,7 @@ public class CarroBean {
     private List<Carro> carros = new ArrayList<>();
     
     public void adicionar(){
-        
         carros.add(carro);
-        CarroDAO.inserirCarro(carro);
         carro = new Carro();
     }
 
