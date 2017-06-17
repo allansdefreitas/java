@@ -26,6 +26,10 @@ public class CarroBean {
         CarroDAO.inserirCarro(carro);
         carro = new Carro();
     }
+    
+    public void editar(Carro carro){
+        carro = carro;
+    }
 
     public Carro getCarro() {
         return carro;
