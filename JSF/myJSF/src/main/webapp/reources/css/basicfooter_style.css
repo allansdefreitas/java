@@ -1,0 +1,23 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30/06/2017, 22:32:32
+    Author     : Allan Santos
+*/
+
+.footer{
+    
+    background-color: darkgreen;
+    color: white;
+    height: 22px;
+    padding: 5px;
+    margin: 10px 0;
+}
+
+body {
+    background-color: brown;
+}
+
