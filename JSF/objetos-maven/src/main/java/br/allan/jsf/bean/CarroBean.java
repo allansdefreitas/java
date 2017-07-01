@@ -22,7 +22,7 @@ public class CarroBean {
     
     public void adicionar(){
         
-        carros.add(carro);
+        //carros.add(carro);
         CarroDAO.inserirCarro(carro);
         carro = new Carro();
     }
