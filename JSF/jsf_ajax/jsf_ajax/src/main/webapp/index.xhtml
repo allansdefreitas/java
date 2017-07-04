@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <script>
+            function typing(event) {
+                alert("The event has occured: " + event.status);
+            }
+        </script>
+        <h:form id="form1">
+            <h:panelGrid>
+                <h:outputLabel value="Texto"/>
+                <h:inputText value="#{ajaxControll.texto}" id="texto">
+<!--                    <f:ajax listener="#{ajaxControll.textInverter()}" execute="@this" render="saida" 
+                            event="keyup" onevent="typing"/>-->
+                </h:inputText>
+                <h:outputLabel value="Inverted text: "/>
+                <h:outputLabel value="#{ajaxControll.saida}" id="saida"/>
+                <f:facet name="footer">
+                    <h:commandButton action="#{ajaxControll.textInverter()}" value="Inverter">
+                        <f:ajax render="saida" execute="texto"></f:ajax>
+                    </h:commandButton>
+                    
+                </f:facet>
+                
+                
+            </h:panelGrid>
+            
+        </h:form>
+           
+    </h:body>
+</html>
+
