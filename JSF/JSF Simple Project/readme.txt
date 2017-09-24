@@ -20,6 +20,7 @@ Requirements:
 	- Authentication & authorization (GlassFish)
 
 Steps:
+	- class diagram (ok)
 	- wireframes
 	- close features
 	- model e jpa tests (crud)
