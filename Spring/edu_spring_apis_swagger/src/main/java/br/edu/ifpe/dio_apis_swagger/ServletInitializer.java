@@ -1,4 +1,4 @@
-package br.jus.trt.api;
+package br.edu.ifpe.dio_apis_swagger;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -7,7 +7,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(ApiDioApplication.class);
+		return application.sources(DemoApplication.class);
 	}
 
 }

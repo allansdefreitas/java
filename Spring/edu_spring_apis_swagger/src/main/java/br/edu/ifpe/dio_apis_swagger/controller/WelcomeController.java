@@ -1,4 +1,4 @@
-package br.jus.trt.api.controller;
+package br.edu.ifpe.dio_apis_swagger.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,7 +8,8 @@ public class WelcomeController {
 	
 	@GetMapping
 	public String welcome() {
-		return "welcome to my API";
+		
+		return "Welcome";
 	}
 
 }
