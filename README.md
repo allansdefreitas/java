@@ -1,3 +1,4 @@
-# Web fun :globe_with_meridians:
-Java EE, Spring and other web projects. Because web development should be fun!
+# Java fun :coffee: :computer: :globe_with_meridians:
+Java SE and Java EE projects, Spring and other web projects. 
+Because java development should be fun!
 
