@@ -3,9 +3,27 @@ Java SE and Java EE projects, Spring and other web projects.
 Because java development should be fun!
 
 
+# Teaching Java
 
+## Get started
 
+* Get started
+* Syntax
+* Variables
+* Operators
+* Data Types
+* Type Casting
 
+## Methods
+
+* Methods
+* Methods parameters
+* Method overloading
+* Recursion
+
+## Extras
+
+* [JDK 11 API Docs](https://docs.oracle.com/en/java/javase/11/docs/api/index.html)
 
 
 # Useful resources:
