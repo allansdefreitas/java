@@ -1,4 +1,6 @@
-# Java fun :coffee: :computer: :globe_with_meridians:
+# Java :coffee: :computer: :globe_with_meridians:
+Involves: Java, JUnit, JPA, Design Patterns, Web frameworks as Spring
+
 Java SE and Java EE projects, Spring and other web projects. 
 Because java development should be fun!
 
