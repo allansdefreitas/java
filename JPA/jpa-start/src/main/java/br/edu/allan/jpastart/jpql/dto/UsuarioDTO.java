@@ -3,9 +3,7 @@ package br.edu.allan.jpastart.jpql.dto;
 public class UsuarioDTO {
 
     private Integer id;
-
     private String login;
-
     private String nome;
 
     public UsuarioDTO(Integer id, String login, String nome) {
