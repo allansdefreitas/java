@@ -5,7 +5,7 @@ Java SE and Java EE projects, Spring and other web projects.
 Because java development should be fun!
 
 <div align="left">
-  <img width="100px" src="https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/1200px-Java_programming_language_logo.svg.png">
+  <img width="150px" src="https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/1200px-Java_programming_language_logo.svg.png">
 </div>
 
 # Teaching Java
