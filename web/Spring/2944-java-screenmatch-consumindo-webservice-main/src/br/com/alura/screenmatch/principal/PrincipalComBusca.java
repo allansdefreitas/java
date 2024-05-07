@@ -30,7 +30,7 @@ public class PrincipalComBusca {
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 
 		String json = response.body();
-		System.out.println(json);
+		System.out.println(json); 
 
 //		Gson gson = new Gson();
 //		Titulo meuTitulo = gson.fromJson(json, Titulo.class);
