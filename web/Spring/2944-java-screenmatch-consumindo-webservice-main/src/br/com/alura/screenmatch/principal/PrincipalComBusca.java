@@ -29,7 +29,7 @@ public class PrincipalComBusca {
 
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 
-		String json = response.body();
+		String json = response.body();  
 		System.out.println(json); 
 
 //		Gson gson = new Gson();
