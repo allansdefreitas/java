@@ -23,6 +23,11 @@ public class PrincipalComBusca {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 
+		Gson gson = new GsonBuilder()
+				.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+				.setPrettyPrinting()
+				.create();
+		
 		Scanner leitura = new Scanner(System.in);
 		var tituloBusca = "";
 		
@@ -56,7 +61,6 @@ public class PrincipalComBusca {
 //			System.out.println("Título: " + meuTitulo.getNome());
 //			System.out.println(meuTitulo);
 
-				Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
 
 				TituloOMDB meuTituloOMDB = gson.fromJson(json, TituloOMDB.class);
 				System.out.println("Record: " + meuTituloOMDB);
@@ -71,20 +75,27 @@ public class PrincipalComBusca {
 //				writting.close();
 
 			} catch (NumberFormatException ex) {
-				System.out.println("An error occured: " + ex.getMessage());
+				System.out.println("An error occured: " + ex.getMessage() + ex.getClass());
 			} catch (IllegalArgumentException ex) {
-				System.out.println("An error occured: " + ex.getMessage());
+				System.out.println("An error occured: " + ex.getMessage() + ex.getClass());
 //			ex.printStackTrace();
 			} catch (ErrorYearConversionException ex) {
-				System.out.println("An error occured: " + ex.getMessage());
+				System.out.println("An error occured: " + ex.getMessage() + ex.getClass());
 			} catch (NullPointerException | IllegalStateException ex) {
-				System.out.println("Multicatch example: " + ex.getMessage());
+				System.out.println("Multicatch example: " + ex.getMessage() + ex.getClass());
 			} finally {
-				System.out.println("The program finished successfully");
+				System.out.println("No error occured");
 			}
 			
 		}
+		
 		System.out.println(titulos);
+		FileWriter writting = new FileWriter("movies.json");
+		writting.write(gson.toJson(titulos));
+		writting.close();
+		
+		System.out.println("The program finished successfully");
+		
 	}
 
 }

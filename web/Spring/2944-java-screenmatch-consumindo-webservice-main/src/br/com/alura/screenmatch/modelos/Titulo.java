@@ -28,7 +28,9 @@ public class Titulo implements Comparable<Titulo> {
 		}
 		
 		this.anoDeLancamento = Integer.parseInt(meuTituloOMDB.year());
+		
 		String runtimeSubstring = meuTituloOMDB.runtime().substring(0, 3);
+		runtimeSubstring = runtimeSubstring.trim();
 		this.duracaoEmMinutos = Integer.valueOf(runtimeSubstring);
 	}
 
