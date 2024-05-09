@@ -12,6 +12,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import br.com.alura.screenmatch.exception.ErrorYearConversionException;
 import br.com.alura.screenmatch.modelos.Titulo;
 import br.com.alura.screenmatch.modelos.TituloOMDB;
 
@@ -21,30 +22,51 @@ public class PrincipalComBusca {
 
 		Scanner leitura = new Scanner(System.in);
 		System.out.println("Digite o nome da obra: ");
-		var titulo = leitura.nextLine();
-		
-		HttpClient client = HttpClient.newHttpClient();
-		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("https://www.omdbapi.com/?t="+titulo+"&apikey=cd70d0b3")).build();
+		var tituloBusca = leitura.nextLine();
 
-		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-
-		String json = response.body();  
-		System.out.println(json); 
-
-//		Gson gson = new Gson();
-//		Titulo meuTitulo = gson.fromJson(json, Titulo.class);
-//		System.out.println("Título: " + meuTitulo.getNome());
-//		System.out.println(meuTitulo);
+		tituloBusca = tituloBusca.replace(" ", "+");
+		String address = "https://www.omdbapi.com/?t=" + tituloBusca + "&apikey=cd70d0b3";
 		
-		Gson gson = new GsonBuilder()
-				.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-				.create();
-		TituloOMDB meuTituloOMDB = gson.fromJson(json, TituloOMDB.class);
-		System.out.println("Record: " + meuTituloOMDB);
-		Titulo meuTitulo = new Titulo(meuTituloOMDB);
+		try {
+
+			HttpClient client = HttpClient.newHttpClient();
+			HttpRequest request = HttpRequest.newBuilder()
+					.uri(URI.create(address)).build();
+
+			HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+
+			String json = response.body();
+			System.out.println("JSON: " + json);
+
+//			Gson gson = new Gson();
+//			Titulo meuTitulo = gson.fromJson(json, Titulo.class);
+//			System.out.println("Título: " + meuTitulo.getNome());
+//			System.out.println(meuTitulo);
+
+			Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
+
+			TituloOMDB meuTituloOMDB = gson.fromJson(json, TituloOMDB.class);
+			System.out.println("Record: " + meuTituloOMDB);
+
+//		try {
+			Titulo meuTitulo = new Titulo(meuTituloOMDB);
+			System.out.println("meuTitulo: " + meuTitulo);
+		} catch (NumberFormatException ex) {
+			System.out.println("An error occured: " + ex.getMessage());
+		}catch(IllegalArgumentException ex) {
+			System.out.println("An error occured: " + ex.getMessage());
+//			ex.printStackTrace();
+		}catch(ErrorYearConversionException ex) {
+			System.out.println("An error occured: " + ex.getMessage());
+		}
+		catch(NullPointerException | IllegalStateException ex) {
+			System.out.println("Multicatch example: " + ex.getMessage());
+		}
+		finally {
+			System.out.println("The program finished successfully");
+		}
 		
-		System.out.println(meuTitulo);
+//		System.exit(0);
 
 	}
 
