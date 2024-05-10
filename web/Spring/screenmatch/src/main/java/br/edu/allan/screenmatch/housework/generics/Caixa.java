@@ -26,7 +26,6 @@ public class Caixa<T> {
             String resultado = c + "\n" + s;
             return (T) resultado;
         }
-
         return null;
     }
     /**
