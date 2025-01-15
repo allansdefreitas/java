@@ -4,13 +4,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import br.edu.allan.screenmatch.model.Serie;
-import br.edu.allan.screenmatch.service.ConsumoAPI;
-import br.edu.allan.screenmatch.service.ConverteDados;
+import br.edu.allan.screenmatch.main.Main;
 
 @SpringBootApplication
 public class ScreenmatchApplication implements CommandLineRunner {
 
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ScreenmatchApplication.class, args);
 	}
@@ -18,20 +17,50 @@ public class ScreenmatchApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		ConsumoAPI consumoAPI = new ConsumoAPI();
+		Main main = new Main();
 		
-//		String address = "http://www.omdbapi.com/?t=The+chosen&Season=1&&apikey=cd70d0b3";
-//		address = "https://coffee.alexflipnote.dev/random.json";
-		String address = "http://www.omdbapi.com/?t=The+chosen&apikey=cd70d0b3";
+		main.showMenu();
 		
-		var json = consumoAPI.obterDados(address);
-		System.out.println(json);
-		
-		ConverteDados conversor = new ConverteDados();
-        Serie dados = conversor.obterDados(json, Serie.class);
-        System.out.println(dados);
-		
-		
+//		ConsumoAPI consumoAPI = new ConsumoAPI();
+//		
+////		String address = "http://www.omdbapi.com/?t=The+chosen&Season=1&&apikey=cd70d0b3";
+////		address = "https://coffee.alexflipnote.dev/random.json";
+//		
+//		/* Series ----------------------------------------------- */
+//		String addressSerie = "http://www.omdbapi.com/?t=Chicago+Med&apikey="+Constantes.API_KEY;
+//		
+//		var jsonSerie = consumoAPI.obterDados(addressSerie);
+////		System.out.println(jsonSerie);
+//		
+//		ConverteDados conversor = new ConverteDados();
+//        Serie serie = conversor.obterDados(jsonSerie, Serie.class);
+//        System.out.println(serie);
+//        
+//        /* Episodes ----------------------------------------------- */
+//        String addressEpisode = "https://www.omdbapi.com/?t=Chicago+Med&season=1&episode=1&apikey="+Constantes.API_KEY;
+//        var jsonEpisode = consumoAPI.obterDados(addressEpisode);
+////		System.out.println(jsonEpisode);
+//		
+//        Episodio episodio = conversor.obterDados(jsonEpisode, Episodio.class);
+//        System.out.println(episodio);
+//        
+//        /* Seasons ----------------------------------------------- */
+//        String addressSeason;
+//        String jsonSeason;
+//        
+//        List<Temporada> temporadas = new ArrayList<>();
+//        
+//        for (int i = 1; i <= serie.totalTemporadas(); i++) {
+//        	  addressSeason = "https://www.omdbapi.com/?t=Chicago+PD&season="+ i +"&apikey="+Constantes.API_KEY;
+//              jsonSeason = consumoAPI.obterDados(addressSeason);
+//              
+//              conversor = new ConverteDados();
+//              Temporada temporada  = conversor.obterDados(jsonSeason, Temporada.class);
+//              temporadas.add(temporada);
+//        }
+//        
+//        temporadas.forEach(System.out::println);
+        
 	}
 
 }
