@@ -1,6 +1,6 @@
 package br.edu.allan.screenmatch.service;
 
 
-public interface IConverteDados {
+public interface IConversorDados {
     <T> T  obterDados(String json, Class<T> classe);
 }
