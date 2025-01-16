@@ -33,16 +33,16 @@ public class ScreenmatchApplication implements CommandLineRunner {
 ////		System.out.println(jsonSerie);
 //		
 //		ConverteDados conversor = new ConverteDados();
-//        Serie serie = conversor.obterDados(jsonSerie, Serie.class);
-//        System.out.println(serie);
+//        Serie dadosSerie = conversor.obterDados(jsonSerie, Serie.class);
+//        System.out.println(dadosSerie);
 //        
 //        /* Episodes ----------------------------------------------- */
 //        String addressEpisode = "https://www.omdbapi.com/?t=Chicago+Med&season=1&episode=1&apikey="+Constantes.API_KEY;
 //        var jsonEpisode = consumoAPI.obterDados(addressEpisode);
 ////		System.out.println(jsonEpisode);
 //		
-//        Episodio episodio = conversor.obterDados(jsonEpisode, Episodio.class);
-//        System.out.println(episodio);
+//        Episodio dadosEpisodio = conversor.obterDados(jsonEpisode, Episodio.class);
+//        System.out.println(dadosEpisodio);
 //        
 //        /* Seasons ----------------------------------------------- */
 //        String addressSeason;
@@ -50,13 +50,13 @@ public class ScreenmatchApplication implements CommandLineRunner {
 //        
 //        List<Temporada> temporadas = new ArrayList<>();
 //        
-//        for (int i = 1; i <= serie.totalTemporadas(); i++) {
+//        for (int i = 1; i <= dadosSerie.totalTemporadas(); i++) {
 //        	  addressSeason = "https://www.omdbapi.com/?t=Chicago+PD&season="+ i +"&apikey="+Constantes.API_KEY;
 //              jsonSeason = consumoAPI.obterDados(addressSeason);
 //              
 //              conversor = new ConverteDados();
-//              Temporada temporada  = conversor.obterDados(jsonSeason, Temporada.class);
-//              temporadas.add(temporada);
+//              Temporada dadosTemporada  = conversor.obterDados(jsonSeason, Temporada.class);
+//              temporadas.add(dadosTemporada);
 //        }
 //        
 //        temporadas.forEach(System.out::println);
