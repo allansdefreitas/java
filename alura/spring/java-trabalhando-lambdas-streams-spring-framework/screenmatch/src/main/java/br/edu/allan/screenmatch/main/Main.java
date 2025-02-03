@@ -109,9 +109,6 @@ public class Main {
 		Optional<Episodio> searchedEpisode = episodios.stream()
 			.filter(e -> e.getTitulo().toLowerCase().contains(episodeTitlePiece.toLowerCase()))
 			.findFirst();
-
-		System.out.println(searchedEpisode);
-		
 		
 		if(searchedEpisode.isPresent()) {
 			System.out.println("Episódio encontrado!\n"
