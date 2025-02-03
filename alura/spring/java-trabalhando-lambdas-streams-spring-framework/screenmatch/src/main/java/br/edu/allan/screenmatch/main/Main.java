@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -79,29 +80,49 @@ public class Main {
 //		dadosEpisodios.forEach(System.out::println);
 		System.out.println("\n\n10 Melhores episódios, segundo nota IMDb\n");
 		
-		int vezes = 0;
-		dadosEpisodios.stream()
-			.filter(e -> !(e.notaImdb().equalsIgnoreCase("N/A")) )
-			.peek(e -> System.out.println("Primeiro filtro (N/A) " + e))
-			.sorted(Comparator.comparing(DadosEpisodio::notaImdb).reversed())
-			.peek(e -> System.out.println("Ordenação: " + e))
-			.limit(10)
-			.peek(e -> System.out.println("Limite: " + e))
-			.map(e -> e.titulo().toUpperCase() )
-			.peek(e -> System.out.println("Mapeamento: " + e))
-			.forEach(System.out::println);
+//		int vezes = 0;
+//		dadosEpisodios.stream()
+//			.filter(e -> !(e.notaImdb().equalsIgnoreCase("N/A")) )
+//			.peek(e -> System.out.println("Primeiro filtro (N/A) " + e))
+//			.sorted(Comparator.comparing(DadosEpisodio::notaImdb).reversed())
+//			.peek(e -> System.out.println("Ordenação: " + e))
+//			.limit(10)
+//			.peek(e -> System.out.println("Limite: " + e))
+//			.map(e -> e.titulo().toUpperCase() )
+//			.peek(e -> System.out.println("Mapeamento: " + e))
+//			.forEach(System.out::println);
 		
-//		
-//		List<Episodio> episodios = dadosTemporadas.stream()
-//		.flatMap(t -> t.episodios().stream()
-//				.filter(e -> !(e.notaImdb().equalsIgnoreCase("N/A")) )
-//				.map(d -> new Episodio(t.numeroTemporada(), d))
-//				).collect(Collectors.toList());
-//	
-//	
-//		episodios.forEach(System.out::println);
-//		
-//		
+		
+		List<Episodio> episodios = dadosTemporadas.stream()
+		.flatMap(t -> t.episodios().stream()
+				.filter(e -> !(e.notaImdb().equalsIgnoreCase("N/A")) )
+				.map(d -> new Episodio(t.numeroTemporada(), d))
+				).collect(Collectors.toList());
+	
+	
+		episodios.forEach(System.out::println);
+		
+		
+		System.out.println("Enter the title of an episode: ");
+		var episodeTitlePiece = leitura.nextLine();
+		
+		Optional<Episodio> searchedEpisode = episodios.stream()
+			.filter(e -> e.getTitulo().toLowerCase().contains(episodeTitlePiece.toLowerCase()))
+			.findFirst();
+
+		System.out.println(searchedEpisode);
+		
+		
+		if(searchedEpisode.isPresent()) {
+			System.out.println("Episódio encontrado!\n"
+					+ "Temporada: " + searchedEpisode.get().getNumeroTemporada());
+		}else {
+			System.out.println("Episódio não encontrado");
+		}
+		
+		
+		
+		
 //		System.out.println("\n\nQuer ver os episódios a partir de que ano de lançamento? ");
 //		var ano = leitura.nextInt();
 //		leitura.nextLine();
