@@ -2,11 +2,7 @@ package br.edu.allan.screenmatch.main;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import br.edu.allan.screenmatch.model.DadosEpisodio;
@@ -103,23 +99,23 @@ public class Main {
 		episodios.forEach(System.out::println);
 		
 		
-		System.out.println("Enter the title of an episode: ");
-		var episodeTitlePiece = leitura.nextLine();
+//		System.out.println("Enter the title of an episode: ");
+//		var episodeTitlePiece = leitura.nextLine();
+//
+//		Optional<Episodio> searchedEpisode = episodios.stream()
+//			.filter(e -> e.getTitulo().toLowerCase().contains(episodeTitlePiece.toLowerCase()))
+//			.findFirst();
+//
+//		if(searchedEpisode.isPresent()) {
+//			System.out.println("Episódio encontrado!\n" +
+//					"Episódio: " + searchedEpisode.get().getTitulo() +
+//					"Temporada: " + searchedEpisode.get().getNumeroTemporada());
+//		}else {
+//			System.out.println("Episódio não encontrado");
+//		}
 		
-		Optional<Episodio> searchedEpisode = episodios.stream()
-			.filter(e -> e.getTitulo().toLowerCase().contains(episodeTitlePiece.toLowerCase()))
-			.findFirst();
 		
-		if(searchedEpisode.isPresent()) {
-			System.out.println("Episódio encontrado!\n"
-					+ "Temporada: " + searchedEpisode.get().getNumeroTemporada());
-		}else {
-			System.out.println("Episódio não encontrado");
-		}
-		
-		
-		
-		
+
 //		System.out.println("\n\nQuer ver os episódios a partir de que ano de lançamento? ");
 //		var ano = leitura.nextInt();
 //		leitura.nextLine();
@@ -136,6 +132,37 @@ public class Main {
 //					" Episódio: " + e.getNumeroEpisodio() + 
 //					" Data lançamento: " + e.getDataLancamento().format(formatador)
 //			));
-	
+
+		Map<Integer, Double> ratingsPerSeason = episodios.stream()
+				.filter(e -> e.getNotaImdb() > 0.0)
+//				.peek(e -> System.out.println("nota: " + e.getNotaImdb()))
+				.collect(
+						Collectors.groupingBy(Episodio::getNumeroTemporada,
+						Collectors.averagingDouble(Episodio::getNotaImdb)));
+
+		System.out.println("\n\nMédia de nota por temporada: ");
+//		System.out.println(ratingsPerSeason);
+
+		ratingsPerSeason.forEach((season, rating) ->
+				System.out.println("Temporada " + season + " - Nota: " + String.format("%.1f", rating))
+		);
+
+
+		System.out.println("Estatísticas sobre as notas IMDb dos espisódios: ");
+		DoubleSummaryStatistics est = episodios.stream()
+				.filter(e -> e.getNotaImdb() > 0.0)
+				.collect(Collectors.summarizingDouble(Episodio::getNotaImdb));
+
+
+		System.out.println(est);
+
+		System.out.println(
+				"Total of episodes: " + est.getCount() + "\n" +
+				"Average: " + est.getAverage() + "\n" +
+				"Best episode rating: " + est.getMax() + "\n" +
+				"Worst episode: " + est.getMin() + "\n"
+		);
+
+
 	}
 }
