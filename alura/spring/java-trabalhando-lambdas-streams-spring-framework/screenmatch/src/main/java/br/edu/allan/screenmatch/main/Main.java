@@ -153,7 +153,6 @@ public class Main {
 				.filter(e -> e.getNotaImdb() > 0.0)
 				.collect(Collectors.summarizingDouble(Episodio::getNotaImdb));
 
-
 		System.out.println(est);
 
 		System.out.println(
