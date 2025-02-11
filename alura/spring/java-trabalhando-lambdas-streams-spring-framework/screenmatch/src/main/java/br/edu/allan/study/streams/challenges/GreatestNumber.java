@@ -15,5 +15,9 @@ public class GreatestNumber {
         if(greatestNumber.isPresent()){
             System.out.println("Greatest number: " + greatestNumber);
         }
+
+        Optional<Integer> max = numeros.stream()
+                .max(Integer::compare);
+        max.ifPresent(System.out::println); // Esperado: 50
     }
 }
