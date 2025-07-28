@@ -16,29 +16,33 @@ public class FraudDetectorService {
     public static void main(String[] args) {
         var consumer = new KafkaConsumer<String, String>(properties());
         consumer.subscribe(Collections.singletonList(NOME_TOPICO));
-        var records = consumer.poll(Duration.ofMillis(100));
 
-        if(records.isEmpty()){
-            System.out.println("There is not records");
-        }else{
-            for(var record : records){
-                System.out.println("-------------------------------------------");
-                System.out.println("processing new order, checking for fraud");
-                System.out.println(record.key());
-                System.out.println(record.value());
-                System.out.println(record.partition());
-                System.out.println(record.offset());
+        while (true) {
 
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            var records = consumer.poll(Duration.ofMillis(100));
+
+            if (!records.isEmpty()) {
+                System.out.println("There is " +  records.count() + " records");
+                for (var record : records) {
+                    System.out.println("-------------------------------------------");
+                    System.out.println("processing new order, checking for fraud");
+                    System.out.println(record.key());
+                    System.out.println(record.value());
+                    System.out.println(record.partition());
+                    System.out.println(record.offset());
+
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Order processed!");
+
                 }
-                System.out.println("Order processed!");
-
+                continue;
             }
         }
-                
+
     }
 
     private static Properties properties() {
