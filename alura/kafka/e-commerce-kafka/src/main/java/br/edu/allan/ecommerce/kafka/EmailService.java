@@ -2,20 +2,20 @@ package br.edu.allan.ecommerce.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 
-public class FraudDetectorService {
-    private final static String TOPIC_ECOMMERCE_NEW_ORDER = "ECOMMERCE_NEW_ORDER";
+public class EmailService {
+
+    private final static String TOPIC_ECOMMERCE_SEND_EMAIL = "ECOMMERCE_SEND_EMAIL";
 
     public static void main(String[] args) {
+
         var consumer = new KafkaConsumer<String, String>(properties());
-        consumer.subscribe(Collections.singletonList(TOPIC_ECOMMERCE_NEW_ORDER));
+        consumer.subscribe(Collections.singletonList(TOPIC_ECOMMERCE_SEND_EMAIL));
 
         while (true) {
 
@@ -25,7 +25,7 @@ public class FraudDetectorService {
                 System.out.println("There is " +  records.count() + " records");
                 for (var record : records) {
                     System.out.println("-------------------------------------------");
-                    System.out.println("processing new order, checking for fraud");
+                    System.out.println("Sending e-mail");
                     System.out.println(record.key());
                     System.out.println(record.value());
                     System.out.println(record.partition());
@@ -36,13 +36,12 @@ public class FraudDetectorService {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("Order processed!");
+                    System.out.println("E-mail sent!");
 
                 }
                 continue;
             }
         }
-
     }
 
     private static Properties properties() {
@@ -52,7 +51,7 @@ public class FraudDetectorService {
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, FraudDetectorService.class.getSimpleName());
+        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, EmailService.class.getSimpleName());
 
         return properties;
     }

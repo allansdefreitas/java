@@ -1,6 +1,7 @@
 package br.edu.allan.ecommerce.kafka;
 
 
+import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -12,23 +13,33 @@ import java.util.concurrent.ExecutionException;
 
 public class NewOrderMain {
 
-    private final static String NOME_TOPICO = "ECOMMERCE_NEW_ORDER";
+    private final static String TOPIC_ECOMMERCE_NEW_ORDER = "ECOMMERCE_NEW_ORDER";
+    private final static String TOPIC_ECOMMERCE_SEND_EMAIL = "ECOMMERCE_SEND_EMAIL";
+
+
     public static void main(String[] args) {
 
         var producer = new KafkaProducer<String, String>(properties());
 
         var value = "12345,85458,784521514";
 
-        var record = new ProducerRecord<String, String>(NOME_TOPICO, value, value);
+        var record = new ProducerRecord<String, String>(TOPIC_ECOMMERCE_NEW_ORDER, value, value);
 
         try {
-            producer.send(record, (data, ex) -> {
+
+            Callback callback = (data, ex) -> {
                 if (ex != null) {
                     ex.printStackTrace();
                     return;
                 }
                 System.out.println("sucesso enviando " + data.topic() + ":::partition " + data.partition() + "/ offset " + data.offset() + "/ timestamp " + data.timestamp());
-            }).get();
+            };
+
+            var email = "Hello! We are processing your order!";
+            var emailRecord = new ProducerRecord<String, String>(TOPIC_ECOMMERCE_SEND_EMAIL, email, email);
+            producer.send(record, callback).get();
+            producer.send(emailRecord, callback).get();
+
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {
