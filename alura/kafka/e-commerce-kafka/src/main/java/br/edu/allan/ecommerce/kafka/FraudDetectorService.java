@@ -15,8 +15,6 @@ import java.util.UUID;
 public class FraudDetectorService {
     private final static String TOPIC_ECOMMERCE_NEW_ORDER = "ECOMMERCE_NEW_ORDER";
 
-
-
     public static void main(String[] args) {
 
         var fraudService = new FraudDetectorService();
@@ -27,28 +25,16 @@ public class FraudDetectorService {
 
         service.run();
 
-
-        while (true) {
-            var records = consumer.poll(Duration.ofMillis(100));
-            if (!records.isEmpty()) {
-                System.out.println("There is " +  records.count() + " records");
-                for (var record : records) {
-
-
-                }
-                continue;
-            }
-        }
-
     }
 
     private void parse(ConsumerRecord<String, String> record){
         System.out.println("-------------------------------------------");
         System.out.println("processing new order, checking for fraud");
-        System.out.println(record.key());
-        System.out.println(record.value());
-        System.out.println(record.partition());
-        System.out.println(record.offset());
+        System.out.println("-------------------------------------------");
+        System.out.println("key: " + record.key());
+        System.out.println("value: " + record.value());
+        System.out.println("partition: " +record.partition());
+        System.out.println("offset: " +record.offset());
 
         try {
             Thread.sleep(5000);
