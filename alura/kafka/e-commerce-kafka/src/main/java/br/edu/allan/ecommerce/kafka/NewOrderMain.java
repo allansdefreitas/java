@@ -20,32 +20,37 @@ public class NewOrderMain {
 
     public static void main(String[] args) {
 
-        var producer = new KafkaProducer<String, String>(properties());
 
-        var key = UUID.randomUUID().toString();
-        var value = key + ",85458,784521514";
 
-        var record = new ProducerRecord<String, String>(TOPIC_ECOMMERCE_NEW_ORDER, value, value);
+        for(int i=0; i< 100; i++) {
 
-        try {
+            var producer = new KafkaProducer<String, String>(properties());
 
-            Callback callback = (data, ex) -> {
-                if (ex != null) {
-                    ex.printStackTrace();
-                    return;
-                }
-                System.out.println("sucesso enviando " + data.topic() + ":::partition " + data.partition() + "/ offset " + data.offset() + "/ timestamp " + data.timestamp());
-            };
+            var key = UUID.randomUUID().toString();
+            var value = key + ",85458,784521514";
 
-            var email = "Hello! We are processing your order!";
-            var emailRecord = new ProducerRecord<String, String>(TOPIC_ECOMMERCE_SEND_EMAIL, key, email);
-            producer.send(record, callback).get();
-            producer.send(emailRecord, callback).get();
+            var record = new ProducerRecord<String, String>(TOPIC_ECOMMERCE_NEW_ORDER, value, value);
 
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            try {
+
+                Callback callback = (data, ex) -> {
+                    if (ex != null) {
+                        ex.printStackTrace();
+                        return;
+                    }
+                    System.out.println("sucesso enviando " + data.topic() + ":::partition " + data.partition() + "/ offset " + data.offset() + "/ timestamp " + data.timestamp());
+                };
+
+                var email = "Hello! We are processing your order!";
+                var emailRecord = new ProducerRecord<String, String>(TOPIC_ECOMMERCE_SEND_EMAIL, key, email);
+                producer.send(record, callback).get();
+                producer.send(emailRecord, callback).get();
+
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }
