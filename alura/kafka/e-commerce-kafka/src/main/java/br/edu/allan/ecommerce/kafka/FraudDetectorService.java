@@ -7,6 +7,8 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
@@ -18,12 +20,14 @@ public class FraudDetectorService {
     public static void main(String[] args) {
 
         var fraudService = new FraudDetectorService();
-        var service = new KafkaService(
+
+        try(var service = new KafkaService(
                 FraudDetectorService.class.getSimpleName(),
                 TOPIC_ECOMMERCE_NEW_ORDER,
-                fraudService::parse);
+                fraudService::parse)) {
 
-        service.run();
+            service.run();
+        }
 
     }
 
@@ -61,6 +65,5 @@ public class FraudDetectorService {
 
         return properties;
     }
-
 
 }
