@@ -2,15 +2,8 @@ package br.edu.allan.ecommerce.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.time.Duration;
-import java.util.Collections;
 import java.util.Properties;
 import java.util.UUID;
 
