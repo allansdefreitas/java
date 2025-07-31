@@ -4,6 +4,7 @@ package br.edu.allan.ecommerce.kafka;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 
+import java.math.BigDecimal;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
@@ -16,16 +17,23 @@ public class NewOrderMain {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
-        try (var dispatcher = new KafkaDispatcher()) {
+        try (var orderDispatcher = new KafkaDispatcher<Order>()) {
+            try (var emailDispatcher = new KafkaDispatcher<String>()) {
 
-            for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 10; i++) {
 
-                var key = UUID.randomUUID().toString();
-                var value = key + ",85458,784521514";
-                dispatcher.send(TOPIC_ECOMMERCE_NEW_ORDER, key, value);
 
-                var email = "Hello! We are processing your order!";
-                dispatcher.send(TOPIC_ECOMMERCE_SEND_EMAIL, key, email);
+                    var userId = UUID.randomUUID().toString();
+                    var orderId = UUID.randomUUID().toString();
+                    var amount = BigDecimal.valueOf(Math.random() * 5000 + 1);
+
+                    Order order = new Order(userId, orderId, amount);
+
+                    orderDispatcher.send(TOPIC_ECOMMERCE_NEW_ORDER, userId, order);
+
+                    var email = "Hello! We are processing your order!";
+                    emailDispatcher.send(TOPIC_ECOMMERCE_SEND_EMAIL, userId, email);
+                }
             }
         }
     }
