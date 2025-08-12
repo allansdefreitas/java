@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>br.edu.allan</groupId>
-    <artifactId>service-fraud-detector</artifactId>
+    <artifactId>service-new-order</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -19,7 +19,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>br.edu.allan</groupId>
             <artifactId>common-kafka</artifactId>

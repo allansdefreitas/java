@@ -1,4 +1,4 @@
-package br.edu.allan.ecommerce.kafka;
+package br.edu.allan;
 
 public class Email {
 
