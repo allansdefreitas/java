@@ -6,6 +6,17 @@ public class EmailService {
 
     private final static String TOPIC_ECOMMERCE_SEND_EMAIL = "ECOMMERCE_SEND_EMAIL";
 
+    public static void main(String[] args) {
+
+        var emailService = new EmailService();
+        try(var service = new KafkaService(
+                EmailService.class.getSimpleName(),
+                TOPIC_ECOMMERCE_SEND_EMAIL,
+                emailService::parse, String.class)) {
+
+            service.run();
+        }
+    }
 
     private void parse(ConsumerRecord<String, String> record){
 
@@ -16,17 +27,5 @@ public class EmailService {
         System.out.println(record.partition());
         System.out.println(record.offset());
 
-    }
-
-    public static void main(String[] args) {
-
-        var emailService = new EmailService();
-        try(var service = new KafkaService(
-                EmailService.class.getSimpleName(),
-                TOPIC_ECOMMERCE_SEND_EMAIL,
-                emailService::parse)) {
-
-            service.run();
-        }
     }
 }

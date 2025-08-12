@@ -12,6 +12,7 @@ public class Order {
         this.userId = userId;
         this.orderId = orderId;
         this.amount = amount;
+
     }
 
 
