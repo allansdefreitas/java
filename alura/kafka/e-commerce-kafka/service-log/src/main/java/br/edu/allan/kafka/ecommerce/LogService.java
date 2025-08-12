@@ -1,4 +1,4 @@
-package br.edu.allan;
+package br.edu.allan.kafka.ecommerce;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

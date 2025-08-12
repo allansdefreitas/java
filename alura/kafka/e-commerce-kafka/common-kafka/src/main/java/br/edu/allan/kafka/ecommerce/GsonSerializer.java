@@ -1,4 +1,4 @@
-package br.edu.allan;
+package br.edu.allan.kafka.ecommerce;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -1,4 +1,4 @@
-package br.edu.allan;
+package br.edu.allan.kafka.ecommerce;
 
 
 import org.apache.kafka.clients.producer.ProducerConfig;
