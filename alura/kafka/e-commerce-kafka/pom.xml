@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>service-email</module>
-        <module>service-email</module>
     </modules>
 
 
