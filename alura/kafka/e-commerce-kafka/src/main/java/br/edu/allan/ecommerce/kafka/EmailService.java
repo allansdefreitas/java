@@ -14,19 +14,21 @@ public class EmailService {
         try(var service = new KafkaService(
                 EmailService.class.getSimpleName(),
                 TOPIC_ECOMMERCE_SEND_EMAIL,
-                emailService::parse, String.class,
+                emailService::parse,
+                Email.class,
                 Map.of())) {
 
             service.run();
         }
     }
 
-    private void parse(ConsumerRecord<String, String> record){
+    private void parse(ConsumerRecord<String, Email> record){
 
         System.out.println("-------------------------------------------");
         System.out.println("Sending e-mail");
         System.out.println(record.key());
-        System.out.println(record.value());
+        System.out.println(record.value().getSubject());
+        System.out.println(record.value().getBody());
         System.out.println(record.partition());
         System.out.println(record.offset());
 
