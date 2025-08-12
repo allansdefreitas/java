@@ -4,6 +4,8 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -18,7 +20,8 @@ public class FraudDetectorService {
                 FraudDetectorService.class.getSimpleName(),
                 TOPIC_ECOMMERCE_NEW_ORDER,
                 fraudService::parse,
-                Order.class)) {
+                Order.class,
+                new HashMap<>())) { //ou Map.of()
 
             service.run();
         }

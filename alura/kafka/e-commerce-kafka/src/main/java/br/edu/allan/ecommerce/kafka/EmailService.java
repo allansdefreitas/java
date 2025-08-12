@@ -2,6 +2,8 @@ package br.edu.allan.ecommerce.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
+import java.util.Map;
+
 public class EmailService {
 
     private final static String TOPIC_ECOMMERCE_SEND_EMAIL = "ECOMMERCE_SEND_EMAIL";
@@ -12,7 +14,8 @@ public class EmailService {
         try(var service = new KafkaService(
                 EmailService.class.getSimpleName(),
                 TOPIC_ECOMMERCE_SEND_EMAIL,
-                emailService::parse, String.class)) {
+                emailService::parse, String.class,
+                Map.of())) {
 
             service.run();
         }
