@@ -69,7 +69,7 @@ class KafkaService<T> implements Closeable {
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, GsonDeserializer.class.getName());
 
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, groudId);
-        properties.setProperty(ConsumerConfig.CLIENT_ID_CONFIG, FraudDetectorService.class.getSimpleName() + "-" + UUID.randomUUID().toString());
+        properties.setProperty(ConsumerConfig.CLIENT_ID_CONFIG, UUID.randomUUID().toString());
         properties.setProperty(GsonDeserializer.TYPE_CONFIG, type.getName());
 
         properties.putAll(overrideProperties);
