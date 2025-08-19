@@ -25,20 +25,21 @@ public class EmailService {
     private void parse(ConsumerRecord<String, Email> record){
 
         System.out.println("-------------------------------------------");
-        System.out.println("Sending e-mail");
-        System.out.println(record.key());
-        System.out.println(record.value().getSubject());
-        System.out.println(record.value().getBody());
-        System.out.println(record.partition());
-        System.out.println(record.offset());
+        System.out.println("Sending e-mail\n");
+        System.out.println("key: " + record.key());
+        System.out.println("Subject: " + record.value().getSubject());
+        System.out.println("Subject: " + record.value().getBody());
+        System.out.println("partition: " +record.partition());
+        System.out.println("offset: " +record.offset());
+
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(0500);
         } catch (InterruptedException e) {
             // ignoring
             e.printStackTrace();
         }
-        System.out.println("Email sent");
+        System.out.println("\nEmail sent");
 
     }
 }
