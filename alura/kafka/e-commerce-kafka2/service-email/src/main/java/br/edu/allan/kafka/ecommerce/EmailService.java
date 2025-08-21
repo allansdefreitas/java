@@ -32,7 +32,6 @@ public class EmailService {
         System.out.println("partition: " +record.partition());
         System.out.println("offset: " +record.offset());
 
-
         try {
             Thread.sleep(0500);
         } catch (InterruptedException e) {

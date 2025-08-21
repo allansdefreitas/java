@@ -51,7 +51,7 @@ public class FraudDetectorService {
         var order = record.value();
 
         if(isFraud(order)){
-            System.out.println("Order is a fraud!!!!");
+            System.out.println("Order is a fraud!!!!" + order);
             orderDispatcher.send(TOPIC_ECOMMERCE_ORDER_REJECTED, order.getUserId(), order);
         }else{
             System.out.println("Aproved: " + order);
@@ -62,23 +62,6 @@ public class FraudDetectorService {
 
     private static boolean isFraud(Order order) {
         return order.getAmount().compareTo(new BigDecimal("3000")) >= 0;
-    }
-
-
-    private static Properties properties() {
-
-        var properties = new Properties();
-
-        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-        properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-
-        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, FraudDetectorService.class.getSimpleName());
-        properties.setProperty(ConsumerConfig.CLIENT_ID_CONFIG, FraudDetectorService.class.getSimpleName() + "-" + UUID.randomUUID().toString());
-
-
-
-        return properties;
     }
 
 }

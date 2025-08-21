@@ -14,14 +14,14 @@ public class NewOrderMain {
     private final static String TOPIC_ECOMMERCE_NEW_ORDER = "ECOMMERCE_NEW_ORDER";
     private final static String TOPIC_ECOMMERCE_SEND_EMAIL = "ECOMMERCE_SEND_EMAIL";
 
+    private final static int QUANTIDADE_ORDERS_ENVIAR = 10;
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         try (var orderDispatcher = new KafkaDispatcher<Order>()) {
             try (var emailDispatcher = new KafkaDispatcher<Email>()) {
 
-                for (int i = 0; i < 10; i++) {
-
+                for (int i = 0; i < QUANTIDADE_ORDERS_ENVIAR; i++) {
 
                     var userId = UUID.randomUUID().toString();
                     var orderId = UUID.randomUUID().toString();
@@ -38,16 +38,5 @@ public class NewOrderMain {
                 }
             }
         }
-    }
-
-    private static Properties properties() {
-
-        var properties = new Properties();
-
-        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-        properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-
-        return properties;
     }
 }
