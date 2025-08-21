@@ -17,23 +17,18 @@ public class CreateUserService {
 
 
     private final Connection connection;
+    private final static String TOPIC_ECOMMERCE_NEW_ORDER = "ECOMMERCE_NEW_ORDER";
+    private final KafkaDispatcher<Order> orderDispatcher = new KafkaDispatcher<>();
 
     CreateUserService() throws SQLException {
         String url = "jdbc:sqlite:target/users_database.db";
         this.connection = DriverManager.getConnection(url);
 
-        connection.createStatement().execute("create table Users(" +
+        connection.createStatement().execute("create table if not exists Users(" +
                 "uuid varchar(200) primary key," +
                 "email varchar(200)" +
                 ")");
     }
-
-
-    private final static String TOPIC_ECOMMERCE_NEW_ORDER = "ECOMMERCE_NEW_ORDER";
-    private final static String TOPIC_ECOMMERCE_ORDER_REJECTED = "ECOMMERCE_ORDER_REJECTED";
-    private final static String TOPIC_ECOMMERCE_ORDER_APROVED = "ECOMMERCE_ORDER_APROVED";
-
-    private final KafkaDispatcher<Order> orderDispatcher = new KafkaDispatcher<>();
 
     public static void main(String[] args) throws SQLException {
 
@@ -60,21 +55,22 @@ public class CreateUserService {
         var order = record.value();
 
         if(isNewUser(order.getEmail())){
-            insertNewUser(order.getEmail());
-
+            insertNewUser(order.getUserId(), order.getEmail());
+            System.out.println("The user is new");
+        }else{
+            System.out.println("The user is already signed on");
         }
-
 
     }
 
-    private void insertNewUser(String email) throws SQLException {
+    private void insertNewUser(String uuid, String email) throws SQLException {
         var insertStatement = connection.prepareStatement("insert into Users(uuid, email)" +
                 "values (?, ?)");
 
-        insertStatement.setString(1, "uuid");
+        insertStatement.setString(1, uuid);
         insertStatement.setString(2, email);
         insertStatement.execute();
-        System.out.println("User uuid e " + email + "added");
+        System.out.println("User uuid e " + email + " added");
 
     }
 
@@ -89,21 +85,5 @@ public class CreateUserService {
         return !results.next();
 
     }
-
-
-    private static Properties properties() {
-
-        var properties = new Properties();
-
-        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-        properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-
-        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, CreateUserService.class.getSimpleName());
-        properties.setProperty(ConsumerConfig.CLIENT_ID_CONFIG, CreateUserService.class.getSimpleName() + "-" + UUID.randomUUID().toString());
-
-        return properties;
-    }
-
 
 }
