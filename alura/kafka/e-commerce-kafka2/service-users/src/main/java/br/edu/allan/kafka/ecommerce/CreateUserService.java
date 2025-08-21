@@ -47,7 +47,7 @@ public class CreateUserService {
     }
 
     private void parse(ConsumerRecord<String, Order> record) throws SQLException {
-        System.out.println("-------------------------------------------");
+        System.out.println("\n\n-------------------------------------------");
         System.out.println("processing new order, checking for new user");
         System.out.println("-------------------------------------------");
         System.out.println("value: " + record.value());
@@ -55,7 +55,7 @@ public class CreateUserService {
         var order = record.value();
 
         if(isNewUser(order.getEmail())){
-            insertNewUser(order.getUserId(), order.getEmail());
+            insertNewUser(order.getEmail());
             System.out.println("The user is new");
         }else{
             System.out.println("The user is already signed on");
@@ -63,11 +63,11 @@ public class CreateUserService {
 
     }
 
-    private void insertNewUser(String uuid, String email) throws SQLException {
+    private void insertNewUser(String email) throws SQLException {
         var insertStatement = connection.prepareStatement("insert into Users(uuid, email)" +
                 "values (?, ?)");
 
-        insertStatement.setString(1, uuid);
+        insertStatement.setString(1, UUID.randomUUID().toString());
         insertStatement.setString(2, email);
         insertStatement.execute();
         System.out.println("User uuid e " + email + " added");

@@ -52,12 +52,11 @@ public class FraudDetectorService {
 
         if(isFraud(order)){
             System.out.println("Order is a fraud!!!!" + order);
-            orderDispatcher.send(TOPIC_ECOMMERCE_ORDER_REJECTED, order.getUserId(), order);
+            orderDispatcher.send(TOPIC_ECOMMERCE_ORDER_REJECTED, order.getEmail(), order);
         }else{
             System.out.println("Aproved: " + order);
-            orderDispatcher.send(TOPIC_ECOMMERCE_ORDER_APROVED, order.getUserId(), order);
+            orderDispatcher.send(TOPIC_ECOMMERCE_ORDER_APROVED, order.getEmail(), order);
         }
-
     }
 
     private static boolean isFraud(Order order) {
