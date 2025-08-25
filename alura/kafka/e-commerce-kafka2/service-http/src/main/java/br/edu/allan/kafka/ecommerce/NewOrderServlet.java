@@ -30,7 +30,6 @@ public class NewOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
         try {
 
             var emailAddress = req.getParameter("email");
@@ -39,7 +38,6 @@ public class NewOrderServlet extends HttpServlet {
             var orderId = UUID.randomUUID().toString();
 
             Order order = new Order(orderId, new BigDecimal(amount), emailAddress);
-
             orderDispatcher.send(TOPIC_ECOMMERCE_NEW_ORDER, emailAddress, order);
 
             var emailSubject = "Hello! We are processing your order!";

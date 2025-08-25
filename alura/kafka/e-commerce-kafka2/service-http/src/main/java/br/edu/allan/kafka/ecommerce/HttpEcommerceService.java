@@ -11,7 +11,6 @@ public class HttpEcommerceService {
 
         var server = new Server(8080);
 
-
         var context = new ServletContextHandler();
         context.setContextPath("/");
         server.setHandler(context);
