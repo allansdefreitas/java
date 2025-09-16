@@ -28,11 +28,13 @@ public class ReadingReportService {
         }
     }
 
-    private void parse(ConsumerRecord<String, User> record) throws IOException {
+    private void parse(ConsumerRecord<String, Message<User>> record) throws IOException {
         System.out.println("-------------------------------------------");
         System.out.println("processing new reading report for " + record.value());
 
-        var user = record.value();
+        var message = record.value();
+        var user = (User) message.getPayload();
+
         var target = new File(user.getReportPath());
         IO.copyTo(SOURCE, target);
         IO.append(target, "Created for " + user.getUuid());

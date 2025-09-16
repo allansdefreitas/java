@@ -60,7 +60,6 @@ public class BatchSendMessageService {
             userDispatcher.send(message.getPayload(), user.getUuid(), user);
         }
 
-
     }
 
     private List<User> getAllUsers() throws SQLException {
