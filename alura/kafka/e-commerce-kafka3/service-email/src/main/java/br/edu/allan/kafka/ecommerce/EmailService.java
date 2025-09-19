@@ -22,13 +22,16 @@ public class EmailService {
         }
     }
 
-    private void parse(ConsumerRecord<String, Email> record){
+    private void parse(ConsumerRecord<String, Message<Email>> record){
+
+        var message = record.value();
+        var email = message.getPayload();
 
         System.out.println("-------------------------------------------");
         System.out.println("Sending e-mail\n");
         System.out.println("key: " + record.key());
-        System.out.println("Subject: " + record.value().getSubject());
-        System.out.println("Subject: " + record.value().getBody());
+        System.out.println("Subject: " + email.getSubject());
+        System.out.println("Subject: " + email.getBody());
         System.out.println("partition: " +record.partition());
         System.out.println("offset: " +record.offset());
 
