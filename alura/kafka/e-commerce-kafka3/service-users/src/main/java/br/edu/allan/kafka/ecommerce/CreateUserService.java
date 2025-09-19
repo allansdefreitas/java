@@ -52,8 +52,8 @@ public class CreateUserService {
         System.out.println("-------------------------------------------");
         System.out.println("value: " + record.value());
 
-        var message = record.value();
-        var order = (Order) message.getPayload();
+        var messageValue = record.value();
+        var order = (Order) messageValue.getPayload();
 
         if(isNewUser(order.getEmail())){
             insertNewUser(order.getEmail());
@@ -61,7 +61,6 @@ public class CreateUserService {
         }else{
             System.out.println("The user is already signed on");
         }
-
     }
 
     private void insertNewUser(String email) throws SQLException {

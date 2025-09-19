@@ -15,11 +15,9 @@ public class BatchSendMessageService {
     private final KafkaDispatcher<User> userDispatcher = new KafkaDispatcher<>();
 
 
-    private final static String TOPIC_SEND_MESSAGE_TO_ALL_USERS = "SEND_MESSAGE_TO_ALL_USERS";
+    private final static String TOPIC_SEND_MESSAGE_TO_ALL_USERS = "ECOMMERCE_SEND_MESSAGE_TO_ALL_USERS";
 
     private final Connection connection;
-    private final static String TOPIC_ECOMMERCE_NEW_ORDER = "ECOMMERCE_NEW_ORDER";
-    private final KafkaDispatcher<Order> orderDispatcher = new KafkaDispatcher<>();
 
     BatchSendMessageService() throws SQLException {
         String url = "jdbc:sqlite:target/users_database.db";
@@ -57,7 +55,10 @@ public class BatchSendMessageService {
         System.out.println("Topic: " + message.getPayload());
 
         for(User user : getAllUsers()){
-            userDispatcher.send(message.getPayload(), user.getUuid(), user);
+            // Message ID + next ID. And so on.
+            CorrelationId correlationId = message.getId().continueWith( BatchSendMessageService.class.getSimpleName() );
+
+            userDispatcher.send(message.getPayload(), user.getUuid(), correlationId, user);
         }
 
     }

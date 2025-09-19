@@ -9,8 +9,8 @@ import java.util.concurrent.ExecutionException;
 
 public class GenerateAllReportsServlet extends HttpServlet {
 
-    private final static String TOPIC_USER_GENERATE_READING_REPORT = "USER_GENERATE_READING_REPORT";
-    private final static String TOPIC_SEND_MESSAGE_TO_ALL_USERS = "SEND_MESSAGE_TO_ALL_USERS";
+    private final static String TOPIC_USER_GENERATE_READING_REPORT = "ECOMMERCE_USER_GENERATE_READING_REPORT";
+    private final static String TOPIC_SEND_MESSAGE_TO_ALL_USERS = "ECOMMERCE_SEND_MESSAGE_TO_ALL_USERS";
 
     private final KafkaDispatcher<String> batchDispatcher = new KafkaDispatcher<>();
 
@@ -25,9 +25,13 @@ public class GenerateAllReportsServlet extends HttpServlet {
 
         try {
 
-            batchDispatcher.send(TOPIC_SEND_MESSAGE_TO_ALL_USERS, TOPIC_USER_GENERATE_READING_REPORT, TOPIC_USER_GENERATE_READING_REPORT);
+            CorrelationId correlationId = new CorrelationId(GenerateAllReportsServlet.class.getSimpleName());
+            //Send to BatchSendMessageService i.e. BSMS is 'hearing' the topic TOPIC_SEND_MESSAGE_TO_ALL_USERS.
+            batchDispatcher.send(TOPIC_SEND_MESSAGE_TO_ALL_USERS, TOPIC_USER_GENERATE_READING_REPORT,
+                    correlationId,
+                    TOPIC_USER_GENERATE_READING_REPORT);
 
-            String successMessage = "Sent generate reporsts to all users!";
+            String successMessage = "Sent generate reports to all users!";
             System.out.println(successMessage);
 
             resp.setStatus(HttpServletResponse.SC_OK);

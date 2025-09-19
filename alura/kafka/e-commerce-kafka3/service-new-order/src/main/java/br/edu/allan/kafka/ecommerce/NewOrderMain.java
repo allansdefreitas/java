@@ -30,12 +30,13 @@ public class NewOrderMain {
 
                     Order order = new Order(orderId, amount, emailAddress);
 
-                    orderDispatcher.send(TOPIC_ECOMMERCE_NEW_ORDER, emailAddress, order);
+                    CorrelationId correlationId = new CorrelationId(NewOrderMain.class.getSimpleName());
+                    orderDispatcher.send(TOPIC_ECOMMERCE_NEW_ORDER, emailAddress, correlationId, order);
 
                     var emailSubject = "Hello! We are processing your order!";
                     Email email = new Email("Processing order", emailSubject);
 
-                    emailDispatcher.send(TOPIC_ECOMMERCE_SEND_EMAIL, emailAddress, email);
+                    emailDispatcher.send(TOPIC_ECOMMERCE_SEND_EMAIL, emailAddress, correlationId, email);
                 }
             }
         }

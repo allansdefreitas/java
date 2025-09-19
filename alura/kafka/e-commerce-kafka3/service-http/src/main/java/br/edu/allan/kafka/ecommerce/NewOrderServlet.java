@@ -36,14 +36,15 @@ public class NewOrderServlet extends HttpServlet {
             var amount = req.getParameter("amount");
 
             var orderId = UUID.randomUUID().toString();
+            CorrelationId correlationId = new CorrelationId(NewOrderServlet.class.getSimpleName());
 
             Order order = new Order(orderId, new BigDecimal(amount), emailAddress);
-            orderDispatcher.send(TOPIC_ECOMMERCE_NEW_ORDER, emailAddress, order);
+            orderDispatcher.send(TOPIC_ECOMMERCE_NEW_ORDER, emailAddress, correlationId, order);
 
             var emailSubject = "Hello! We are processing your order!";
             Email email = new Email("Processing order", emailSubject);
 
-            emailDispatcher.send(TOPIC_ECOMMERCE_SEND_EMAIL, emailAddress, email);
+            emailDispatcher.send(TOPIC_ECOMMERCE_SEND_EMAIL, emailAddress, correlationId, email);
 
             String successMessage = "The new order was processed successfully!";
             System.out.println(successMessage);

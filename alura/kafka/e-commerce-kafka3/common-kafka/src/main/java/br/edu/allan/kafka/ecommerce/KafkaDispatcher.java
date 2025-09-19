@@ -19,9 +19,9 @@ public class KafkaDispatcher<T> implements Closeable {
         this.producer = new KafkaProducer<>(properties());
     }
 
-    void send(String topic, String key, T payload) throws ExecutionException, InterruptedException {
+    void send(String topic, String key, CorrelationId correlationId, T payload) throws ExecutionException, InterruptedException {
 
-        var value = new Message<T>(new CorrelationId(), payload);
+        var value = new Message<T>(correlationId, payload);
 
         var record = new ProducerRecord<>(topic, key, value);
         Callback callback = (data, ex) -> {
