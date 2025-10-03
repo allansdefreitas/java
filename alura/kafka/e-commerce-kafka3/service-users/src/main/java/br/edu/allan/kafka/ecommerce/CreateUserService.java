@@ -38,7 +38,6 @@ public class CreateUserService {
                 CreateUserService.class.getSimpleName(),
                 TOPIC_ECOMMERCE_NEW_ORDER,
                 createUserService::parse,
-                Order.class,
                 new HashMap<>())) { //ou Map.of()
 
             service.run();

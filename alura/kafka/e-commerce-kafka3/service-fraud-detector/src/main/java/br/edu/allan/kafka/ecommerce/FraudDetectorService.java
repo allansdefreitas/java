@@ -25,7 +25,6 @@ public class FraudDetectorService {
                 FraudDetectorService.class.getSimpleName(),
                 TOPIC_ECOMMERCE_NEW_ORDER,
                 fraudService::parse,
-                Order.class,
                 new HashMap<>())) { //ou Map.of()
 
             service.run();

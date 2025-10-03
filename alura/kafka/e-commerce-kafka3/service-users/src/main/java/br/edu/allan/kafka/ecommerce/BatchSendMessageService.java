@@ -37,7 +37,6 @@ public class BatchSendMessageService {
                 BatchSendMessageService.class.getSimpleName(),
                 TOPIC_SEND_MESSAGE_TO_ALL_USERS,
                 batchService::parse,
-                String.class,
                 new HashMap<>())) { //ou Map.of()
 
             service.run();

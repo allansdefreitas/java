@@ -15,7 +15,6 @@ public class EmailService {
                 EmailService.class.getSimpleName(),
                 TOPIC_ECOMMERCE_SEND_EMAIL,
                 emailService::parse,
-                Email.class,
                 Map.of())) {
 
             service.run();

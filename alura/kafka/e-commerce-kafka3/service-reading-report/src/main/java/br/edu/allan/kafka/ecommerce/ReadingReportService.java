@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 
 public class ReadingReportService {
 
-    private final static String TOPIC_USER_GENERATE_READING_REPORT = "USER_GENERATE_READING_REPORT";
+    private final static String TOPIC_USER_GENERATE_READING_REPORT = "ECOMMERCE_USER_GENERATE_READING_REPORT";
     private static final Path SOURCE = new File("src/main/resources/report.txt").toPath();
 
     public static void main(String[] args) {
@@ -21,7 +21,6 @@ public class ReadingReportService {
                 ReadingReportService.class.getSimpleName(),
                 TOPIC_USER_GENERATE_READING_REPORT,
                 reportService::parse,
-                User.class,
                 new HashMap<>())) { //ou Map.of()
 
             service.run();
