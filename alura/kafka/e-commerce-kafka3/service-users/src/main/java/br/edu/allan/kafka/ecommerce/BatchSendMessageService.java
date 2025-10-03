@@ -5,6 +5,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,9 +60,10 @@ public class BatchSendMessageService {
             CorrelationId correlationId = message.getId().continueWith( BatchSendMessageService.class.getSimpleName() );
             // Now, the sending is asynchronous
             userDispatcher.sendAsync(message.getPayload(), user.getUuid(), correlationId, user);
-            System.out.println("I think I sent it to " + user);
-        }
 
+            String logMessage = "I think I sent it to " + user;
+            printLogMessage(logMessage);
+        }
     }
 
     private List<User> getAllUsers() throws SQLException {
@@ -74,5 +77,11 @@ public class BatchSendMessageService {
             users.add(user);
         }
         return users;
+    }
+
+    private void printLogMessage(String message){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss,SSS");
+        String timestamp = LocalDateTime.now().format(formatter);
+        System.out.println(timestamp + ": "+ message);
     }
 }

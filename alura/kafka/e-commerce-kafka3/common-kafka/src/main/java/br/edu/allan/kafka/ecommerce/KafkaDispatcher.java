@@ -4,6 +4,8 @@ import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.io.Closeable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -32,10 +34,17 @@ public class KafkaDispatcher<T> implements Closeable {
                 ex.printStackTrace();
                 return;
             }
-            System.out.println("sucesso enviando " + data.topic() + ":::partition " + data.partition() + "/ offset " + data.offset() + "/ timestamp " + data.timestamp());
+            String logMessage = "sucesso enviando " + data.topic() + ":::partition " + data.partition() + "/ offset " + data.offset() + "/ timestamp " + data.timestamp();
+            printLogMessage(logMessage);
         };
         var future = producer.send(record, callback);
         return future;
+    }
+
+    private void printLogMessage(String message){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss,SSS");
+        String timestamp = LocalDateTime.now().format(formatter);
+        System.out.println(timestamp + ": "+ message);
     }
 
     private static Properties properties() {

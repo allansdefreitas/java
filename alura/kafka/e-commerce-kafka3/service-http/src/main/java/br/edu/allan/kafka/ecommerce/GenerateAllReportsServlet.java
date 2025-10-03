@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ExecutionException;
 
 public class GenerateAllReportsServlet extends HttpServlet {
@@ -32,7 +34,7 @@ public class GenerateAllReportsServlet extends HttpServlet {
                     TOPIC_USER_GENERATE_READING_REPORT);
 
             String successMessage = "Sent generate reports to all users!";
-            System.out.println(successMessage);
+            printLogMessage(successMessage);
 
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().println("Report requests generated");
@@ -42,6 +44,12 @@ public class GenerateAllReportsServlet extends HttpServlet {
         } catch (InterruptedException e) {
             throw new ServletException(e);
         }
+    }
+
+    private void printLogMessage(String message){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss,SSS");
+        String timestamp = LocalDateTime.now().format(formatter);
+        System.out.println(timestamp + ": "+ message);
     }
 }
 
