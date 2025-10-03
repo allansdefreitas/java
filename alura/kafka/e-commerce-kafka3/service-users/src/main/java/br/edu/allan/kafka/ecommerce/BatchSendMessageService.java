@@ -56,8 +56,9 @@ public class BatchSendMessageService {
         for(User user : getAllUsers()){
             // Message ID + next ID. And so on.
             CorrelationId correlationId = message.getId().continueWith( BatchSendMessageService.class.getSimpleName() );
-
-            userDispatcher.send(message.getPayload(), user.getUuid(), correlationId, user);
+            // Now, the sending is asynchronous
+            userDispatcher.sendAsync(message.getPayload(), user.getUuid(), correlationId, user);
+            System.out.println("I think I sent it to " + user);
         }
 
     }
